@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My routines · Exercise Routine Coach</title>
+  <link rel="stylesheet" href="/css/coach.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="app-header">
+    <p class="brand">Exercise <span>Routine Coach</span></p>
+    <nav class="app-nav" aria-label="Coach sections">
+      <a href="/index.html">Import</a>
+      <a href="/library.html" aria-current="page">My routines</a>
+      <a href="/author.html">Build</a>
+      <a href="/session.html">Session</a>
+    </nav>
+  </header>
+  <main id="main">
+    <h1 class="page-title">My routines</h1>
+    <p class="lede">Account-less personal library — routines stay in this browser. Start every guided session from a saved routine.</p>
+
+    <section class="stage" aria-labelledby="library-heading">
+      <h2 id="library-heading" class="visually-hidden">Saved routines</h2>
+      <div id="library-empty" class="empty-state" hidden>
+        <p>No routines yet. <a href="/author.html">Build your first routine</a> or <a href="/index.html">import a JSON file</a>.</p>
+      </div>
+      <ul id="library-list" class="routine-list" aria-live="polite"></ul>
+      <p class="lede stack-gap"><a class="btn" href="/author.html">Build another routine</a></p>
+    </section>
+  </main>
+  <footer class="app-footer">
+    <p>Personal practice coach · English guidance · Not medical advice · Static web app</p>
+  </footer>
+  <script src="/js/library.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.ERLibrary && window.ERLibrary.renderLibraryPage) {
+        window.ERLibrary.renderLibraryPage();
+      }
+    });
+  </script>
+</body>
+</html>

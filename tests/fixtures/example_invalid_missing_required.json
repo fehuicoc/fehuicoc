@@ -1,8 +1,0 @@
-{
-  "format_id": "exercise-routine-coach",
-  "schema_version": "1.0",
-  "routine": {
-    "id": "x",
-    "sessions": []
-  }
-}

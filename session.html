@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guided session · Exercise Routine Coach</title>
+  <link rel="stylesheet" href="/css/coach.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="app-header">
+    <p class="brand">Exercise <span>Routine Coach</span></p>
+    <nav class="app-nav" aria-label="Coach sections">
+      <a href="/index.html">Import</a>
+      <a href="/library.html">My routines</a>
+      <a href="/author.html">Build</a>
+      <a href="/session.html" aria-current="page">Session</a>
+    </nav>
+  </header>
+  <main id="main">
+    <h1 class="page-title">Guided session</h1>
+    <p class="lede" id="session-routine-label">Choose a saved routine from My routines to begin.</p>
+
+    <div class="session-total-bar" id="session-total-bar" hidden aria-label="Session total elapsed">
+      <span class="session-total-label">TOTAL</span>
+      <span class="session-total-value" id="total-elapsed" aria-live="polite">0:00</span>
+    </div>
+
+    <section class="progress-glance" id="progress-glance" aria-label="Session progress" hidden>
+      <div class="cell cell-wide" data-glance="block">
+        <span class="label">Block</span>
+        <span class="value">—</span>
+      </div>
+      <div class="cell" data-glance="round">
+        <span class="label">Round</span>
+        <span class="value">—</span>
+      </div>
+      <div class="cell" data-glance="set">
+        <span class="label">Set</span>
+        <span class="value">—</span>
+      </div>
+      <div class="cell" data-glance="side">
+        <span class="label">Side</span>
+        <span class="value">—</span>
+      </div>
+      <div class="cell" data-glance="load">
+        <span class="label">Load</span>
+        <span class="value">—</span>
+      </div>
+      <div class="cell cell-wide" data-glance="next">
+        <span class="label">Next</span>
+        <span class="value next-line">—</span>
+      </div>
+    </section>
+
+    <section class="stage stage--option1" id="session-stage" aria-labelledby="exercise-heading" hidden>
+      <div>
+        <span class="phase-chip" id="phase-chip">Exercise</span>
+        <h2 id="exercise-heading" class="exercise-name">—</h2>
+      </div>
+
+      <div class="timer-block" role="status" aria-live="polite" aria-atomic="true">
+        <p class="timer-value" id="timer-value">0:00</p>
+        <p class="timer-label" id="timer-label">Time remaining</p>
+      </div>
+
+      <div
+        class="visual-panel visual-panel--instructions instructions-panel"
+        id="visual-panel"
+        role="region"
+        aria-label="Current step instructions"
+      >
+        <p id="visual-caption" class="step-instructions-text">—</p>
+      </div>
+
+      <div class="meta-row" id="meta-row">
+        <span id="reps-meta"><strong>Reps target</strong> —</span>
+        <span id="set-meta"><strong>Set</strong> —</span>
+        <span id="steps-meta"><strong>Steps left</strong> —</span>
+      </div>
+
+      <div class="control-bar" role="group" aria-label="Session controls">
+        <button type="button" class="btn btn-extend btn-span" id="btn-extend-rest" hidden aria-label="Extend rest by 15 seconds">Extend rest +15s</button>
+        <button type="button" class="btn btn-primary" id="btn-pause">Pause</button>
+        <button type="button" class="btn" id="btn-continue" hidden>Continue</button>
+        <button type="button" class="btn" id="btn-skip">Skip</button>
+        <button type="button" class="btn" id="btn-back">Back</button>
+        <button type="button" class="btn" id="btn-restart">Restart</button>
+        <button type="button" class="btn btn-danger" id="btn-end">End</button>
+      </div>
+
+      <div class="progress-strip">
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar" aria-label="Session progress">
+          <span class="progress-fill" id="progress-fill"></span>
+        </div>
+        <p class="progress-caption" id="progress-caption">Not started</p>
+      </div>
+    </section>
+
+    <section class="stage" id="session-day-picker" hidden aria-labelledby="day-picker-heading">
+      <h2 id="day-picker-heading" class="exercise-name">Choose day / session</h2>
+      <p class="instructions">This imported routine has multiple days. Pick one to run with the same guided session engine.</p>
+      <label class="field"><span>Day or session</span>
+        <select id="session-day-select" class="session-picker" aria-label="Day or session to run"></select>
+      </label>
+      <div class="control-bar">
+        <button type="button" class="btn btn-primary" id="btn-start-picked-day">Start selected day</button>
+      </div>
+    </section>
+
+    <section class="stage" id="session-idle" aria-labelledby="idle-heading">
+      <h2 id="idle-heading" class="exercise-name">Ready when you are</h2>
+      <p class="instructions">Open <a href="/library.html">My routines</a>, pick a saved routine, and start a guided session. Timers for exercise, rest, and transition stay on this screen — single runner, no separate timer.</p>
+      <p class="lede">Tip: <a href="/index.html">Import</a> a JSON routine or <a href="/author.html">Build</a> one manually.</p>
+    </section>
+
+    <section class="stage" id="session-end" hidden aria-labelledby="end-heading">
+      <h2 id="end-heading" class="exercise-name">Session closed</h2>
+      <p class="instructions" id="end-summary">—</p>
+      <p class="progress-caption" id="end-progress">—</p>
+      <p><a class="btn btn-primary" href="/library.html">Back to My routines</a></p>
+    </section>
+  </main>
+  <footer class="app-footer">
+    <p>Personal practice coach · English guidance · Not medical advice · Static web app</p>
+  </footer>
+  <script>
+    window.ER_TRANSITION_DEFAULT = 5;
+  </script>
+  <script src="/js/library.js"></script>
+  <script src="/js/visuals.js"></script>
+  <script src="/js/progress.js"></script>
+  <script src="/js/session.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build routine · Exercise Routine Coach</title>
+  <link rel="stylesheet" href="/css/coach.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="app-header">
+    <p class="brand">Exercise <span>Routine Coach</span></p>
+    <nav class="app-nav" aria-label="Coach sections">
+      <a href="/index.html">Import</a>
+      <a href="/library.html">My routines</a>
+      <a href="/author.html" aria-current="page">Build</a>
+      <a href="/session.html">Session</a>
+    </nav>
+  </header>
+  <main id="main">
+    <h1 class="page-title">Build routine</h1>
+    <p class="lede">Create ordered exercises with duration and/or reps. Duration owns the timer when both are set; reps are your on-screen target.</p>
+
+    <form id="author-form" class="stage author-form" novalidate>
+      <label class="field">
+        <span>Routine name</span>
+        <input type="text" id="routine-name" name="routine_name" required maxlength="80" placeholder="e.g. Morning Strength" autocomplete="off">
+      </label>
+
+      <div id="exercise-rows" aria-live="polite"></div>
+
+      <div class="control-bar">
+        <button type="button" class="btn" id="btn-add-exercise">Add exercise</button>
+        <button type="submit" class="btn btn-primary">Save routine</button>
+      </div>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <footer class="app-footer">
+    <p>Personal practice coach · English guidance · Not medical advice · Static web app</p>
+  </footer>
+  <script src="/js/library.js"></script>
+  <script src="/js/authoring.js"></script>
+</body>
+</html>

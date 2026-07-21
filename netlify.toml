@@ -1,0 +1,30 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Pretty paths matching the former FastAPI routes (MPA — not a SPA catch-all)
+[[redirects]]
+  from = "/import"
+  to = "/import.html"
+  status = 200
+
+[[redirects]]
+  from = "/library"
+  to = "/library.html"
+  status = 200
+
+[[redirects]]
+  from = "/author"
+  to = "/author.html"
+  status = 200
+
+[[redirects]]
+  from = "/session"
+  to = "/session.html"
+  status = 200
+
+# SPA-style fallback for deep links / refresh on unknown paths
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

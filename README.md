@@ -1,40 +1,47 @@
 # Exercise Routine Coach
 
-Import-first personal guided workout coach — upload a ChatGPT-compatible `.json` routine (schema **1.0 / 1.1** flat `exercises[]`, or **1.2** `blocks[]`), preview and confirm into your browser library, optionally edit, then run a single guided session engine (exercise / rest / transition).
+Static web app (no Python / FastAPI / Uvicorn). Import JSON routines, store them in `localStorage`, and run guided sessions in the browser. Deployable on Netlify.
 
-English UI. Not medical advice.
+Compatible import schemas: **1.0 / 1.1** (`exercises[]`) and **1.2** (`blocks[]`).
 
-## Purpose
-
-Guide an operator through imported workout sessions with timers, progress strip (block / round / set / side / load / next), optional pre-start countdown, and extend-rest — phone-first option_1 layout without a sidebar.
-
-## Setup / run locally
+## Setup
 
 ```powershell
-python -m pip install -e ".[dev]"
-python -m uvicorn exercise_routine.app:app --reload --app-dir src --port 8765
+npm install
+npm run dev
 ```
 
-Open http://127.0.0.1:8765/ (Import is the home page)
+Open http://127.0.0.1:8765/
 
-Health check: http://127.0.0.1:8765/health
+## Production build
+
+```powershell
+npm run build
+```
+
+Output: `dist/` (configured in `vite.config.js` and `netlify.toml`).
+
+Preview locally:
+
+```powershell
+npm run preview
+```
+
+## Netlify
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+- See `netlify.toml` for pretty-path redirects (`/library` to `library.html`, etc.)
 
 ## Flow
 
-1. **Import** (primary) — select or drop a `.json` file (≤ 1 MiB). Preview sessions, blocks, and exercises before anything is saved. Cancel clears the preview; Confirm upserts into My routines.
-2. **My routines** — open imported or manually built routines; start a session (multi-day routines ask which day/session to run).
-3. **Build** (secondary) — create or edit a named routine with ordered exercises (duration and/or reps, rest, sets, instructions, optional visual URL). Block authoring UI is out of scope for schema 1.2.
-4. **Session** — guided timers with Pause / Continue / Skip / Back / Restart / End; glanceable progress strip; countdown and extend rest when `live_tracking` says so.
+1. **Import** — choose or drop a `.json` file (max 1 MiB). Preview is ephemeral (`sessionStorage`).
+2. **Confirm** — saves to **My routines** (`localStorage` key `er_coach_routines_v1`).
+3. **Session** — timers for exercise / rest / transition; Pause, Continue, Skip, Back, Restart, End; final summary.
 
-Authority fixture for 1.2: `tests/fixtures/francisco_semana6_dia1_webapp_v2.json`  
-Example flat import: `examples/chatgpt_compatible_routine.json`
+Sample files under `public/examples/` and `public/fixtures/` (including Francisco schema 1.2).
 
-## Testing
+## Notes
 
-```powershell
-python -m pytest -q
-```
-
-## Storage
-
-Routines persist in browser `localStorage` (`er_coach_routines_v1`). Import preview is ephemeral (`sessionStorage` `er_import_preview_v1`) and is not recovered after a hard reload. No enterprise identity.
+- No backend and no `/api/*` calls.
+- Import validation runs in the browser (JSON Schema + adapter).
