@@ -1,0 +1,105 @@
+{
+  "format_id": "exercise-routine-coach",
+  "schema_version": "1.0",
+  "routine": {
+    "id": "ex-full-body-a",
+    "name": "Full Body A",
+    "goal": "General strength",
+    "description": "Example importable routine for Package 2 pilot",
+    "level": "intermediate",
+    "estimated_duration_minutes": 45,
+    "frequency": "3x/week",
+    "equipment_required": [
+      "dumbbells",
+      "mat"
+    ],
+    "general_notes": "Warm up 5 minutes before starting",
+    "non_medical_warnings": [
+      "Stop if pain increases"
+    ],
+    "sessions": [
+      {
+        "id": "day-1",
+        "name": "Day 1",
+        "description": "Push emphasis",
+        "order": 1,
+        "approx_duration_minutes": 45,
+        "exercises": [
+          {
+            "id": "ex-squat",
+            "name": "Goblet squat",
+            "instructions": "Feet shoulder width; descend controlled",
+            "order": 1,
+            "sets": 3,
+            "metric": {
+              "kind": "reps",
+              "reps": 10
+            },
+            "rest_seconds": 60,
+            "transition_seconds": 10,
+            "laterality": "none",
+            "equipment": [
+              "dumbbell"
+            ],
+            "technical_notes": "Keep chest up",
+            "visual_ref": null,
+            "alternatives": [
+              "Bodyweight squat"
+            ]
+          },
+          {
+            "id": "ex-plank",
+            "name": "Plank hold",
+            "instructions": "Neutral spine",
+            "order": 2,
+            "sets": 2,
+            "metric": {
+              "kind": "duration",
+              "duration_seconds": 40
+            },
+            "rest_seconds": 45,
+            "transition_seconds": 5,
+            "laterality": "none",
+            "equipment": [
+              "mat"
+            ],
+            "technical_notes": "",
+            "visual_ref": null,
+            "alternatives": []
+          }
+        ]
+      },
+      {
+        "id": "day-2",
+        "name": "Day 2",
+        "description": "Pull emphasis",
+        "order": 2,
+        "approx_duration_minutes": 40,
+        "exercises": [
+          {
+            "id": "ex-row",
+            "name": "Dumbbell row",
+            "instructions": "Hinge; pull to hip",
+            "order": 1,
+            "sets": 3,
+            "metric": {
+              "kind": "reps",
+              "reps": 12
+            },
+            "rest_seconds": 60,
+            "transition_seconds": 10,
+            "laterality": "alternating",
+            "equipment": [
+              "dumbbell"
+            ],
+            "technical_notes": "",
+            "visual_ref": null,
+            "alternatives": [
+              "Band row"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

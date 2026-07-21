@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">My routines</h1>
+<p class="lede">Account-less personal library — routines stay in this browser. Start every guided session from a saved routine.</p>
+
+<section class="stage" aria-labelledby="library-heading">
+  <h2 id="library-heading" class="visually-hidden">Saved routines</h2>
+  <div id="library-empty" class="empty-state" hidden>
+    <p>No routines yet. <a href="/author">Build your first routine</a>.</p>
+  </div>
+  <ul id="library-list" class="routine-list" aria-live="polite"></ul>
+  <p class="lede stack-gap"><a class="btn" href="/author">Build another routine</a></p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/library.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.ERLibrary && window.ERLibrary.renderLibraryPage) {
+      window.ERLibrary.renderLibraryPage();
+    }
+  });
+</script>
+{% endblock %}

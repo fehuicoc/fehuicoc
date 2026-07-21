@@ -1,0 +1,643 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://factory.local/exercise-routine/import/v1",
+  "title": "Exercise Routine Coach import file",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format_id",
+    "schema_version",
+    "routine"
+  ],
+  "properties": {
+    "format_id": {
+      "const": "exercise-routine-coach"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^1\\.\\d+$",
+      "description": "Semver-minor string; major 1 compatible with this schema"
+    },
+    "routine": {
+      "$ref": "#/$defs/routine"
+    }
+  },
+  "$defs": {
+    "stringOrStringArray": {
+      "oneOf": [
+        {
+          "type": "string",
+          "maxLength": 4000
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "maxItems": 40
+        }
+      ]
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "reps",
+            "duration",
+            "reps_per_side",
+            "rep_range",
+            "duration_per_side"
+          ]
+        },
+        "reps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "duration_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7200
+        },
+        "min_reps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "max_reps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "stop_rule": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "reps"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "reps"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "duration"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "duration_seconds"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "reps_per_side"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "reps"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "duration_per_side"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "duration_seconds"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "rep_range"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "min_reps",
+              "max_reps"
+            ]
+          }
+        }
+      ]
+    },
+    "load": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "bodyweight",
+            "external",
+            "none",
+            "unspecified"
+          ]
+        },
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "per_hand": {
+          "type": "boolean"
+        },
+        "holding_pattern": {
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    },
+    "setup": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "live_tracking": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "countdown_before_start_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120
+        },
+        "auto_start_next_step": {
+          "type": "boolean"
+        },
+        "allow_skip_step": {
+          "type": "boolean"
+        },
+        "allow_pause": {
+          "type": "boolean"
+        },
+        "allow_extend_rest": {
+          "type": "boolean"
+        },
+        "rest_extension_increment_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 300
+        },
+        "audio_cues": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "display_preferences": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "large_primary_numbers": {
+              "type": "boolean"
+            },
+            "show_current_set": {
+              "type": "boolean"
+            },
+            "show_total_sets": {
+              "type": "boolean"
+            },
+            "show_next_exercise": {
+              "type": "boolean"
+            },
+            "show_load": {
+              "type": "boolean"
+            },
+            "show_side": {
+              "type": "boolean"
+            },
+            "show_block_progress": {
+              "type": "boolean"
+            },
+            "show_elapsed_time": {
+              "type": "boolean"
+            },
+            "show_estimated_time_remaining": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "exercise": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "name",
+        "order",
+        "metric"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "instructions": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "execution_instructions": {
+          "$ref": "#/$defs/stringOrStringArray"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        },
+        "sets": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "metric": {
+          "$ref": "#/$defs/metric"
+        },
+        "tempo": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "rest_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600
+        },
+        "transition_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "laterality": {
+          "type": "string",
+          "enum": [
+            "none",
+            "left",
+            "right",
+            "alternating",
+            "bilateral",
+            "both_sides_each_set"
+          ]
+        },
+        "side_sequence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 4
+        },
+        "equipment": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "maxItems": 20
+        },
+        "load": {
+          "$ref": "#/$defs/load"
+        },
+        "setup": {
+          "$ref": "#/$defs/setup"
+        },
+        "technical_notes": {
+          "$ref": "#/$defs/stringOrStringArray"
+        },
+        "common_errors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "maxItems": 20
+        },
+        "pain_adaptation": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "visual_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "maxItems": 20
+        }
+      }
+    },
+    "block": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "name",
+        "order",
+        "type",
+        "exercises"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "circuit",
+            "straight_sets",
+            "paired_sets",
+            "straight_sets_bilateral",
+            "sequence"
+          ]
+        },
+        "rounds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "rest_between_rounds_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600
+        },
+        "transition_after_block_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "estimated_duration_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "exercises": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 40,
+          "items": {
+            "$ref": "#/$defs/exercise"
+          }
+        }
+      }
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "name",
+        "order"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "approx_duration_minutes": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "reserved_duration_minutes": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "session_type": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "target_rpe": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "completion_rule": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "exercises": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 80,
+          "items": {
+            "$ref": "#/$defs/exercise"
+          }
+        },
+        "blocks": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 40,
+          "items": {
+            "$ref": "#/$defs/block"
+          }
+        },
+        "post_session_checkin": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "exercises"
+          ]
+        },
+        {
+          "required": [
+            "blocks"
+          ]
+        }
+      ]
+    },
+    "routine": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "id",
+        "name",
+        "sessions"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "goal": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "beginner",
+            "intermediate",
+            "advanced",
+            "advanced_recreational",
+            "unspecified"
+          ]
+        },
+        "estimated_duration_minutes": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "reserved_duration_minutes": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "frequency": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "equipment_required": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "maxItems": 40
+        },
+        "general_notes": {
+          "$ref": "#/$defs/stringOrStringArray"
+        },
+        "non_medical_warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "maxItems": 40
+        },
+        "live_tracking": {
+          "$ref": "#/$defs/live_tracking"
+        },
+        "sessions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 31,
+          "items": {
+            "$ref": "#/$defs/session"
+          }
+        }
+      }
+    }
+  },
+  "x_compatibility": {
+    "compatible_schema_versions": [
+      "1.0",
+      "1.1",
+      "1.2"
+    ],
+    "incompatible_major": "reject",
+    "optional_fields_absent": "allowed_non_blocking",
+    "required_fields_absent": "blocking_validation_error",
+    "no_free_text_reconstruction": true,
+    "preferred_media_type": "application/json",
+    "allowed_extensions": [
+      ".json"
+    ],
+    "max_file_bytes": 1048576
+  }
+}

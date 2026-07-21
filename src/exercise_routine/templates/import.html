@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">Import routine</h1>
+<p class="lede">
+  Upload a ChatGPT-compatible <strong>.json</strong> file (max {{ (max_file_bytes / 1048576)|round(0, 'floor')|int }}&nbsp;MiB).
+  Preview before anything is saved to My routines.
+</p>
+
+<section class="stage import-panel" id="import-panel" aria-labelledby="import-heading">
+  <h2 id="import-heading" class="exercise-name">Select or drop a file</h2>
+
+  <div
+    class="dropzone"
+    id="import-dropzone"
+    tabindex="0"
+    role="button"
+    aria-label="Drop a JSON routine file here or press to choose a file"
+  >
+    <p class="instructions" id="dropzone-hint">
+      Drag and drop a <code>.json</code> file here, or choose a file.
+    </p>
+    <input
+      type="file"
+      id="import-file"
+      accept=".json,application/json"
+      hidden
+    >
+    <button type="button" class="btn btn-primary" id="btn-choose-file">Choose JSON file</button>
+  </div>
+
+  <p class="form-status" id="import-status" role="status" aria-live="polite"></p>
+
+  <div id="import-validating" hidden>
+    <p class="instructions">Validating file…</p>
+  </div>
+
+  <div id="import-errors" class="import-errors" hidden role="alert">
+    <h3>Cannot import</h3>
+    <ul id="import-error-list"></ul>
+    <button type="button" class="btn" id="btn-retry-import">Try another file</button>
+  </div>
+
+  <div id="import-warnings" class="import-warnings" hidden>
+    <h3>Warnings</h3>
+    <ul id="import-warning-list"></ul>
+  </div>
+
+  <div id="import-preview" class="import-preview" hidden>
+    <h3>Preview (not saved yet)</h3>
+    <p id="preview-summary" class="instructions"></p>
+    <ul id="preview-sessions" class="preview-sessions"></ul>
+
+    <div id="collision-panel" class="collision-panel" hidden>
+      <p class="instructions" id="collision-message">
+        A routine with this id already exists in My routines.
+      </p>
+      <div class="control-bar" role="group" aria-label="Id collision choice">
+        <button type="button" class="btn btn-primary" id="btn-replace-id">Replace existing</button>
+        <button type="button" class="btn" id="btn-copy-id">Import as copy</button>
+      </div>
+    </div>
+
+    <div class="control-bar" role="group" aria-label="Import confirm">
+      <button type="button" class="btn btn-primary" id="btn-confirm-import">Confirm import</button>
+      <button type="button" class="btn" id="btn-cancel-import">Cancel</button>
+      <a class="btn" id="btn-edit-after" href="/author" hidden>Edit after import</a>
+    </div>
+  </div>
+</section>
+
+<p class="lede">
+  Prefer to build from scratch?
+  <a href="/author">Build a routine manually</a> (secondary path).
+</p>
+{% endblock %}
+{% block scripts %}
+<script>
+  window.ER_MAX_FILE_BYTES = {{ max_file_bytes | int }};
+</script>
+<script src="/static/js/library.js"></script>
+<script src="/static/js/import.js"></script>
+{% endblock %}

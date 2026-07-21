@@ -1,0 +1,684 @@
+{
+  "format_id": "exercise-routine-coach",
+  "schema_version": "1.2",
+  "routine": {
+    "id": "francisco-w6-d1-full-body-strength",
+    "name": "Semana 6 - Día 1 - Fuerza de cuerpo completo",
+    "goal": "Mantener fuerza y masa muscular, progresar dominadas y trabajar estabilidad unilateral",
+    "description": "Sesión diaria guiada con temporizadores, bloques y descansos exactos. Diseñada para ejecutarse en 36 a 38 minutos efectivos, con 42 a 45 minutos totales reservados.",
+    "level": "advanced_recreational",
+    "estimated_duration_minutes": 38,
+    "reserved_duration_minutes": 45,
+    "frequency": "single_daily_session",
+    "equipment_required": [
+      "rack_with_pullup_bar",
+      "adjustable_bench",
+      "pair_8kg_dumbbells",
+      "pair_10kg_dumbbells",
+      "single_12kg_dumbbell",
+      "mat"
+    ],
+    "general_notes": [
+      "Completar los bloques en el orden indicado.",
+      "No alternar ejercicios fuera del bloque definido.",
+      "En ejercicios unilaterales, completar ambos lados antes de descansar.",
+      "Mantener aproximadamente 2 repeticiones en reserva en el trabajo de fuerza.",
+      "Detener una serie si la técnica se deteriora claramente."
+    ],
+    "non_medical_warnings": [
+      "Detener el ejercicio si aparece dolor agudo, irradiado o creciente.",
+      "Reducir rango, carga o dificultad si aparece molestia articular o lumbar.",
+      "La fatiga muscular normal no debe confundirse con dolor."
+    ],
+    "live_tracking": {
+      "countdown_before_start_seconds": 10,
+      "auto_start_next_step": false,
+      "allow_skip_step": true,
+      "allow_pause": true,
+      "allow_extend_rest": true,
+      "rest_extension_increment_seconds": 15,
+      "audio_cues": {
+        "countdown_last_seconds": 3,
+        "halfway_cue_for_timed_exercises": true,
+        "side_change_cue": true,
+        "set_complete_cue": true,
+        "block_complete_cue": true
+      },
+      "display_preferences": {
+        "large_primary_numbers": true,
+        "show_current_set": true,
+        "show_total_sets": true,
+        "show_next_exercise": true,
+        "show_load": true,
+        "show_side": true,
+        "show_block_progress": true,
+        "show_elapsed_time": true,
+        "show_estimated_time_remaining": true
+      }
+    },
+    "sessions": [
+      {
+        "id": "week6-day1",
+        "name": "Día 1",
+        "description": "Fuerza de cuerpo completo con énfasis en dominadas y estabilidad unilateral",
+        "order": 1,
+        "approx_duration_minutes": 38,
+        "reserved_duration_minutes": 45,
+        "session_type": "strength",
+        "target_rpe": "7-8",
+        "completion_rule": "Completar todos los bloques manteniendo técnica y sin exceder dolor tolerable.",
+        "blocks": [
+          {
+            "id": "warmup",
+            "name": "Calentamiento",
+            "order": 1,
+            "type": "circuit",
+            "rounds": 2,
+            "rest_between_rounds_seconds": 20,
+            "transition_after_block_seconds": 30,
+            "estimated_duration_seconds": 300,
+            "exercises": [
+              {
+                "id": "warmup-bodyweight-squat",
+                "name": "Sentadilla sin carga",
+                "order": 1,
+                "sets": 1,
+                "metric": {
+                  "kind": "reps",
+                  "reps": 10
+                },
+                "tempo": "2-0-1",
+                "rest_seconds": 0,
+                "transition_seconds": 10,
+                "laterality": "none",
+                "equipment": [],
+                "technical_notes": [
+                  "Mantén el pie completo apoyado.",
+                  "Evita que las rodillas colapsen hacia dentro."
+                ],
+                "common_errors": [
+                  "Redondear la zona lumbar al final del descenso.",
+                  "Elevar los talones."
+                ],
+                "pain_adaptation": "Reduce la profundidad.",
+                "alternatives": [
+                  "Sentarse y levantarse del banco"
+                ],
+                "execution_instructions": [
+                  "Pies al ancho cómodo",
+                  "Desciende controlado y sube manteniendo rodillas alineadas"
+                ]
+              },
+              {
+                "id": "warmup-hip-hinge",
+                "name": "Bisagra de cadera",
+                "order": 2,
+                "sets": 1,
+                "metric": {
+                  "kind": "reps",
+                  "reps": 10
+                },
+                "tempo": "2-1-1",
+                "rest_seconds": 0,
+                "transition_seconds": 10,
+                "laterality": "none",
+                "equipment": [],
+                "technical_notes": [
+                  "Siente tensión en isquiotibiales.",
+                  "Mantén las costillas alineadas con la pelvis."
+                ],
+                "common_errors": [
+                  "Convertir el movimiento en sentadilla.",
+                  "Flexionar o extender excesivamente la zona lumbar."
+                ],
+                "pain_adaptation": "Reduce el recorrido.",
+                "alternatives": [],
+                "execution_instructions": [
+                  "Lleva la cadera hacia atrás manteniendo la columna neutra"
+                ]
+              },
+              {
+                "id": "warmup-incline-scapular-pushup",
+                "name": "Flexión escapular contra banco",
+                "order": 3,
+                "sets": 1,
+                "metric": {
+                  "kind": "reps",
+                  "reps": 8
+                },
+                "tempo": "2-1-2",
+                "rest_seconds": 0,
+                "transition_seconds": 10,
+                "laterality": "none",
+                "equipment": [
+                  "adjustable_bench"
+                ],
+                "technical_notes": [
+                  "Mantén el cuerpo alineado."
+                ],
+                "common_errors": [
+                  "Doblar los codos.",
+                  "Hundirse en la zona lumbar."
+                ],
+                "pain_adaptation": "Usa una superficie más alta.",
+                "alternatives": [
+                  "Flexión escapular de pie contra pared"
+                ],
+                "execution_instructions": [
+                  "Con codos extendidos, aproxima y separa las escápulas sin doblar los brazos"
+                ]
+              },
+              {
+                "id": "warmup-active-hang",
+                "name": "Colgado activo",
+                "order": 4,
+                "sets": 1,
+                "metric": {
+                  "kind": "duration",
+                  "duration_seconds": 15
+                },
+                "rest_seconds": 0,
+                "transition_seconds": 10,
+                "laterality": "none",
+                "equipment": [
+                  "rack_with_pullup_bar"
+                ],
+                "technical_notes": [
+                  "Mantén cuello largo y control escapular."
+                ],
+                "common_errors": [
+                  "Encoger hombros.",
+                  "Balancearse."
+                ],
+                "pain_adaptation": "Mantén apoyo parcial de pies.",
+                "alternatives": [
+                  "Depresión escapular con banda"
+                ],
+                "execution_instructions": [
+                  "Desde el colgado, deprime ligeramente las escápulas sin flexionar los codos"
+                ]
+              },
+              {
+                "id": "warmup-standing-thoracic-rotation",
+                "name": "Rotación torácica de pie",
+                "order": 5,
+                "sets": 1,
+                "metric": {
+                  "kind": "reps_per_side",
+                  "reps": 5
+                },
+                "rest_seconds": 0,
+                "transition_seconds": 0,
+                "laterality": "both_sides_each_set",
+                "equipment": [],
+                "technical_notes": [
+                  "El movimiento debe venir principalmente de la columna torácica."
+                ],
+                "common_errors": [
+                  "Girar las rodillas o pelvis.",
+                  "Forzar el rango."
+                ],
+                "pain_adaptation": "Reduce amplitud.",
+                "alternatives": [
+                  "Abrir libro acostado de lado"
+                ],
+                "execution_instructions": [
+                  "Rota el tórax con pelvis estable y movimiento controlado"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "block-a-pullups",
+            "name": "Bloque A - Dominadas",
+            "order": 2,
+            "type": "straight_sets",
+            "rounds": 1,
+            "transition_after_block_seconds": 45,
+            "estimated_duration_seconds": 420,
+            "exercises": [
+              {
+                "id": "pronated-pullup",
+                "name": "Dominada pronada limpia",
+                "order": 1,
+                "sets": 4,
+                "metric": {
+                  "kind": "rep_range",
+                  "min_reps": 4,
+                  "max_reps": 5,
+                  "stop_rule": "Detener antes de usar balanceo, pared o impulso."
+                },
+                "tempo": "controlado-0-2",
+                "rest_seconds": 90,
+                "transition_seconds": 0,
+                "laterality": "none",
+                "equipment": [
+                  "rack_with_pullup_bar"
+                ],
+                "load": {
+                  "kind": "bodyweight"
+                },
+                "technical_notes": [
+                  "Inicia con escápulas controladas.",
+                  "Mantén piernas quietas.",
+                  "No obligues la quinta repetición."
+                ],
+                "common_errors": [
+                  "Balancear piernas.",
+                  "Usar la pared.",
+                  "Adelantar excesivamente la cabeza.",
+                  "Caer sin control."
+                ],
+                "pain_adaptation": "Usa banda ligera o apoyo mínimo de un pie.",
+                "alternatives": [
+                  "Dominada asistida con banda",
+                  "Dominada con apoyo mínimo de un pie"
+                ],
+                "execution_instructions": [
+                  "Sube desde brazos extendidos, lleva el pecho hacia la barra y desciende en aproximadamente 2 segundos"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "block-b-squat-press",
+            "name": "Bloque B - Sentadilla y press",
+            "order": 3,
+            "type": "paired_sets",
+            "rounds": 3,
+            "rest_between_rounds_seconds": 75,
+            "transition_after_block_seconds": 45,
+            "estimated_duration_seconds": 540,
+            "exercises": [
+              {
+                "id": "double-dumbbell-front-squat",
+                "name": "Sentadilla frontal con dos mancuernas",
+                "order": 1,
+                "sets": 3,
+                "metric": {
+                  "kind": "reps",
+                  "reps": 10
+                },
+                "tempo": "2-0-1",
+                "rest_seconds": 20,
+                "transition_seconds": 15,
+                "laterality": "none",
+                "equipment": [
+                  "pair_8kg_dumbbells"
+                ],
+                "load": {
+                  "kind": "external",
+                  "value": 8,
+                  "unit": "kg",
+                  "per_hand": true
+                },
+                "technical_notes": [
+                  "Mantén rodillas alineadas con los pies.",
+                  "Conserva las mancuernas cerca del cuerpo."
+                ],
+                "common_errors": [
+                  "Rodillas hacia dentro.",
+                  "Cadera sube antes que el torso.",
+                  "Redondear la zona lumbar."
+                ],
+                "pain_adaptation": "Reduce profundidad o usa una mancuerna de 12 kg en posición Goblet.",
+                "alternatives": [
+                  "Sentadilla Goblet con mancuerna de 12 kg"
+                ],
+                "execution_instructions": [
+                  "Mancuernas delante de los hombros",
+                  "Desciende con torso estable y sube empujando el suelo"
+                ]
+              },
+              {
+                "id": "neutral-grip-incline-dumbbell-press",
+                "name": "Press inclinado con agarre neutro",
+                "order": 2,
+                "sets": 3,
+                "metric": {
+                  "kind": "reps",
+                  "reps": 10
+                },
+                "tempo": "2-0-1",
+                "rest_seconds": 75,
+                "transition_seconds": 15,
+                "laterality": "none",
+                "equipment": [
+                  "adjustable_bench",
+                  "pair_10kg_dumbbells"
+                ],
+                "load": {
+                  "kind": "external",
+                  "value": 10,
+                  "unit": "kg",
+                  "per_hand": true
+                },
+                "setup": {
+                  "bench_angle_degrees": 30
+                },
+                "technical_notes": [
+                  "Escápulas apoyadas.",
+                  "Antebrazos verticales abajo.",
+                  "Glúteos en contacto con el banco."
+                ],
+                "common_errors": [
+                  "Encoger hombros.",
+                  "Abrir demasiado los codos.",
+                  "Arquear deliberadamente la zona lumbar."
+                ],
+                "pain_adaptation": "Reduce la inclinación o usa 8 kg por mancuerna.",
+                "alternatives": [
+                  "Press plano con agarre neutro"
+                ],
+                "execution_instructions": [
+                  "Palmas enfrentadas",
+                  "Baja controlado y presiona sin perder apoyo del torso"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "block-c-hinge-row",
+            "name": "Bloque C - Bisagra unilateral y remo",
+            "order": 4,
+            "type": "paired_sets",
+            "rounds": 3,
+            "rest_between_rounds_seconds": 75,
+            "transition_after_block_seconds": 30,
+            "estimated_duration_seconds": 600,
+            "exercises": [
+              {
+                "id": "supported-single-leg-rdl",
+                "name": "Peso muerto rumano a una pierna con apoyo",
+                "order": 1,
+                "sets": 3,
+                "metric": {
+                  "kind": "reps_per_side",
+                  "reps": 8
+                },
+                "tempo": "2-1-1",
+                "rest_seconds": 20,
+                "transition_seconds": 20,
+                "laterality": "both_sides_each_set",
+                "side_sequence": [
+                  "left",
+                  "right"
+                ],
+                "equipment": [
+                  "single_8kg_dumbbell",
+                  "rack"
+                ],
+                "load": {
+                  "kind": "external",
+                  "value": 8,
+                  "unit": "kg",
+                  "holding_pattern": "contralateral"
+                },
+                "technical_notes": [
+                  "Rodilla de apoyo ligeramente flexionada.",
+                  "La mancuerna baja cerca de la pierna.",
+                  "Completa ambos lados antes de descansar."
+                ],
+                "common_errors": [
+                  "Abrir la pelvis.",
+                  "Convertirlo en sentadilla.",
+                  "Buscar más profundidad perdiendo neutralidad lumbar."
+                ],
+                "pain_adaptation": "Realiza peso muerto rumano escalonado con ambos pies apoyados.",
+                "alternatives": [
+                  "Peso muerto rumano escalonado"
+                ],
+                "execution_instructions": [
+                  "Apoya ligeramente la mano libre",
+                  "Lleva la cadera atrás y mantén pelvis estable"
+                ]
+              },
+              {
+                "id": "chest-supported-neutral-row",
+                "name": "Remo con pecho apoyado y agarre neutro",
+                "order": 2,
+                "sets": 3,
+                "metric": {
+                  "kind": "reps",
+                  "reps": 10
+                },
+                "tempo": "2-1-2",
+                "rest_seconds": 75,
+                "transition_seconds": 15,
+                "laterality": "none",
+                "equipment": [
+                  "adjustable_bench",
+                  "pair_10kg_dumbbells"
+                ],
+                "load": {
+                  "kind": "external",
+                  "value": 10,
+                  "unit": "kg",
+                  "per_hand": true
+                },
+                "setup": {
+                  "bench_angle_degrees": 35
+                },
+                "technical_notes": [
+                  "Mantén hombros lejos de las orejas.",
+                  "Extiende los brazos con control."
+                ],
+                "common_errors": [
+                  "Despegar el pecho.",
+                  "Encoger hombros.",
+                  "Convertir el movimiento en curl."
+                ],
+                "pain_adaptation": "Reduce a 8 kg por mancuerna.",
+                "alternatives": [
+                  "Remo unilateral apoyado"
+                ],
+                "execution_instructions": [
+                  "Con el pecho apoyado, lleva los codos hacia la cadera y pausa arriba"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "block-d-core-carry",
+            "name": "Bloque D - Core y carga asimétrica",
+            "order": 5,
+            "type": "straight_sets_bilateral",
+            "rounds": 1,
+            "transition_after_block_seconds": 20,
+            "estimated_duration_seconds": 220,
+            "exercises": [
+              {
+                "id": "suitcase-march",
+                "name": "Marcha tipo maleta",
+                "order": 1,
+                "sets": 2,
+                "metric": {
+                  "kind": "duration_per_side",
+                  "duration_seconds": 35
+                },
+                "rest_seconds": 40,
+                "transition_seconds": 10,
+                "laterality": "both_sides_each_set",
+                "side_sequence": [
+                  "left",
+                  "right"
+                ],
+                "equipment": [
+                  "single_12kg_dumbbell"
+                ],
+                "load": {
+                  "kind": "external",
+                  "value": 12,
+                  "unit": "kg",
+                  "per_hand": false
+                },
+                "technical_notes": [
+                  "Completa ambos lados antes de descansar.",
+                  "Mantén costillas sobre pelvis.",
+                  "Aprieta la mancuerna con fuerza."
+                ],
+                "common_errors": [
+                  "Inclinarse hacia la carga.",
+                  "Elevar un hombro.",
+                  "Caminar demasiado rápido."
+                ],
+                "pain_adaptation": "Usa 10 kg o marcha sin desplazamiento.",
+                "alternatives": [
+                  "Sujeción isométrica tipo maleta"
+                ],
+                "execution_instructions": [
+                  "Marcha o camina manteniendo hombros y pelvis nivelados"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cooldown",
+            "name": "Movilidad final",
+            "order": 6,
+            "type": "sequence",
+            "rounds": 1,
+            "transition_after_block_seconds": 0,
+            "estimated_duration_seconds": 180,
+            "exercises": [
+              {
+                "id": "hip-flexor-stretch",
+                "name": "Flexor de cadera - zancada con rodilla apoyada",
+                "order": 1,
+                "sets": 1,
+                "metric": {
+                  "kind": "duration_per_side",
+                  "duration_seconds": 30
+                },
+                "rest_seconds": 0,
+                "transition_seconds": 10,
+                "laterality": "both_sides_each_set",
+                "equipment": [
+                  "mat"
+                ],
+                "technical_notes": [
+                  "Evita arquear la zona lumbar."
+                ],
+                "common_errors": [
+                  "Compensar con extensión lumbar."
+                ],
+                "pain_adaptation": "Reduce el desplazamiento.",
+                "alternatives": [],
+                "execution_instructions": [
+                  "Aprieta ligeramente el glúteo de la pierna atrasada y desplaza la pelvis al frente"
+                ]
+              },
+              {
+                "id": "doorway-chest-stretch",
+                "name": "Pectoral - antebrazo en rack",
+                "order": 2,
+                "sets": 1,
+                "metric": {
+                  "kind": "duration_per_side",
+                  "duration_seconds": 30
+                },
+                "rest_seconds": 0,
+                "transition_seconds": 10,
+                "laterality": "both_sides_each_set",
+                "equipment": [
+                  "rack"
+                ],
+                "technical_notes": [
+                  "Mantén el hombro lejos de la oreja."
+                ],
+                "common_errors": [
+                  "Forzar el hombro hacia delante."
+                ],
+                "pain_adaptation": "Baja la altura del brazo.",
+                "alternatives": [],
+                "execution_instructions": [
+                  "Apoya el antebrazo y gira suavemente el torso en sentido contrario"
+                ]
+              },
+              {
+                "id": "figure-four-glute-stretch",
+                "name": "Glúteo - figura de 4 acostado",
+                "order": 3,
+                "sets": 1,
+                "metric": {
+                  "kind": "duration_per_side",
+                  "duration_seconds": 30
+                },
+                "rest_seconds": 0,
+                "transition_seconds": 0,
+                "laterality": "both_sides_each_set",
+                "equipment": [
+                  "mat"
+                ],
+                "technical_notes": [
+                  "Mantén la pelvis apoyada."
+                ],
+                "common_errors": [
+                  "Forzar la rodilla cruzada."
+                ],
+                "pain_adaptation": "Aleja la pierna del torso.",
+                "alternatives": [],
+                "execution_instructions": [
+                  "Cruza el tobillo sobre la rodilla opuesta y acerca la pierna hacia el torso"
+                ]
+              }
+            ]
+          }
+        ],
+        "post_session_checkin": {
+          "fields": [
+            {
+              "id": "completed",
+              "label": "Sesión completada",
+              "type": "boolean",
+              "required": true
+            },
+            {
+              "id": "actual_duration_minutes",
+              "label": "Duración real en minutos",
+              "type": "number",
+              "required": true
+            },
+            {
+              "id": "session_rpe",
+              "label": "Esfuerzo global RPE",
+              "type": "integer",
+              "min": 1,
+              "max": 10,
+              "required": true
+            },
+            {
+              "id": "pullup_reps_by_set",
+              "label": "Repeticiones de dominadas por serie",
+              "type": "integer_array",
+              "expected_items": 4,
+              "required": true
+            },
+            {
+              "id": "pain_locations",
+              "label": "Molestias",
+              "type": "multi_select",
+              "options": [
+                "none",
+                "knee",
+                "lower_back",
+                "shoulder",
+                "elbow",
+                "wrist",
+                "hip",
+                "other"
+              ],
+              "required": true
+            },
+            {
+              "id": "notes",
+              "label": "Notas",
+              "type": "text",
+              "required": false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
