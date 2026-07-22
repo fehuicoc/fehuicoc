@@ -597,3 +597,125 @@ main {
   }
 }
 
+
+/* --- exercise-routine-004-change: workout lock (AD-001â€¦AD-007) --- */
+body.session-workout-active {
+  overflow: hidden;
+  height: 100dvh;
+}
+
+body.session-workout-active .app-header,
+body.session-workout-active .app-footer,
+body.session-workout-active .page-title,
+body.session-workout-active .lede {
+  display: none !important;
+}
+
+body.session-workout-active #main {
+  max-width: none;
+  margin: 0;
+  padding: 8px 12px;
+  height: 100dvh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body.session-workout-active .session-total-bar--workout {
+  flex-shrink: 0;
+  margin: 0 0 6px;
+  padding: 4px 10px;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+body.session-workout-active .session-total-label {
+  font-size: 0.65rem;
+}
+
+body.session-workout-active .session-total-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+body.session-workout-active .progress-glance--workout {
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+
+body.session-workout-active .progress-glance .glance-optional {
+  display: none;
+}
+
+body.session-workout-active .progress-glance {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 6px;
+}
+
+body.session-workout-active #session-stage.stage--workout-lock {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 10px 12px;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+}
+
+body.session-workout-active .visual-panel--instructions {
+  min-height: 0;
+  max-height: none;
+  flex: 1;
+  margin-bottom: 8px;
+}
+
+body.session-workout-active .step-instructions-text {
+  font-size: clamp(1.05rem, 4.2vw, 1.25rem);
+}
+
+body.session-workout-active .timer-value {
+  font-size: clamp(2rem, 9vw, 2.65rem);
+}
+
+body.session-workout-active .control-bar--icon-deck {
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  gap: 6px;
+  margin: 0;
+  padding: 8px 0 4px;
+  position: sticky;
+  bottom: 0;
+  background: var(--color-surface);
+}
+
+body.session-workout-active .control-bar--icon-deck .btn-icon {
+  flex: 1 1 0;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+body.session-workout-active .control-bar--icon-deck .btn-skip-primary {
+  order: -1;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+body.session-workout-active .progress-strip--compact {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+body.session-workout-active .btn-extend {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+

@@ -556,6 +556,50 @@
     return m + ":" + String(r).padStart(2, "0");
   }
 
+  const AUDIO_MUTE_KEY = "er_audio_muted";
+  let audioCtx = null;
+  let lastBeepRemaining = null;
+
+  function isAudioMuted() {
+    try {
+      return localStorage.getItem(AUDIO_MUTE_KEY) === "1";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function playCountdownBeep() {
+    if (isAudioMuted()) return;
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      if (!audioCtx) audioCtx = new Ctx();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.value = 880;
+      osc.type = "sine";
+      gain.gain.value = 0.08;
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.12);
+    } catch (e) {
+      /* Web Audio unavailable */
+    }
+  }
+
+  function maybeBeepAtRemaining(remaining) {
+    if (![1, 2, 3].includes(remaining)) return;
+    if (lastBeepRemaining === remaining) return;
+    lastBeepRemaining = remaining;
+    playCountdownBeep();
+  }
+
+  function setWorkoutLockActive(active) {
+    document.body.classList.toggle("session-workout-active", !!active);
+  }
+
   function validateRoutine(routine) {
     const errors = [];
     const blocks = routine.blocks || [];
@@ -616,6 +660,7 @@
     progressCaption: document.getElementById("progress-caption"),
     endHeading: document.getElementById("end-heading"),
     endSummary: document.getElementById("end-summary"),
+    endTotalLine: document.getElementById("end-total-line"),
     endProgress: document.getElementById("end-progress"),
   };
 
@@ -778,7 +823,8 @@
       ui.btnExtendRest.hidden = !showExtend;
       if (showExtend) {
         const inc = restIncrement();
-        ui.btnExtendRest.textContent = "Extend rest +" + inc + "s";
+        ui.btnExtendRest.textContent = "+" + inc;
+        ui.btnExtendRest.title = "Extend rest +" + inc + "s";
         ui.btnExtendRest.setAttribute(
           "aria-label",
           "Extend rest by " + inc + " seconds"
@@ -822,6 +868,7 @@
     if (state.paused) return;
     if (state.countdownActive) {
       state.remaining -= 1;
+      maybeBeepAtRemaining(state.remaining);
       ui.timerValue.textContent = formatTime(state.remaining);
       if (state.remaining <= 0) {
         state.countdownActive = false;
@@ -833,6 +880,7 @@
     if (!step) return;
     if (step.duration_seconds != null && step.duration_seconds > 0) {
       state.remaining -= 1;
+      maybeBeepAtRemaining(state.remaining);
       ui.timerValue.textContent = formatTime(state.remaining);
       if (state.remaining <= 0) {
         advance(1);
@@ -856,6 +904,7 @@
       step.duration_seconds != null && step.duration_seconds > 0
         ? step.duration_seconds
         : 0;
+    lastBeepRemaining = null;
     setPaused(false);
     // AD-022: first work/rest/transition after countdown starts TOTAL
     ensureTotalStarted();
@@ -877,11 +926,13 @@
     stopTotal();
     state.started = false;
     state.countdownActive = false;
+    setWorkoutLockActive(false);
     ui.stage.hidden = true;
     if (ui.glance) ui.glance.hidden = true;
     if (ui.totalBar) ui.totalBar.hidden = true;
     ui.idle.hidden = true;
     ui.end.hidden = false;
+    const totalStr = formatTime(state.totalElapsed);
     const doneIndex = endedEarly ? state.index : state.steps.length;
     const prog = window.ERProgress
       ? window.ERProgress.updateProgress(
@@ -896,11 +947,15 @@
         )
       : { caption: "" };
     ui.endHeading.textContent = endedEarly ? "Session ended" : "Session complete";
+    const routineName =
+      state.routine && state.routine.name ? state.routine.name : "routine";
     ui.endSummary.textContent = endedEarly
       ? "You ended early. Progress is saved on this screen — restart anytime from My routines."
-      : "Nice work. You finished the guided session for “" +
-        (state.routine && state.routine.name ? state.routine.name : "routine") +
-        "”.";
+      : "Nice work. You finished the guided session for “" + routineName + "”.";
+    if (ui.endTotalLine) {
+      ui.endTotalLine.hidden = false;
+      ui.endTotalLine.textContent = "Total session time: " + totalStr + ".";
+    }
     ui.endProgress.textContent = prog.caption;
     window.ERLibrary.clearActiveRoutine();
   }
@@ -943,6 +998,8 @@
     ui.stage.hidden = false;
     if (ui.glance) ui.glance.hidden = false;
     if (ui.totalBar) ui.totalBar.hidden = false;
+    setWorkoutLockActive(true);
+    lastBeepRemaining = null;
     startCountdownThenWork();
   }
 

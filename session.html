@@ -21,17 +21,17 @@
     <h1 class="page-title">Guided session</h1>
     <p class="lede" id="session-routine-label">Choose a saved routine from My routines to begin.</p>
 
-    <div class="session-total-bar" id="session-total-bar" hidden aria-label="Session total elapsed">
+    <div class="session-total-bar session-total-bar--workout" id="session-total-bar" hidden aria-label="Session total elapsed">
       <span class="session-total-label">TOTAL</span>
       <span class="session-total-value" id="total-elapsed" aria-live="polite">0:00</span>
     </div>
 
-    <section class="progress-glance" id="progress-glance" aria-label="Session progress" hidden>
+    <section class="progress-glance progress-glance--workout" id="progress-glance" aria-label="Session progress" hidden>
       <div class="cell cell-wide" data-glance="block">
         <span class="label">Block</span>
         <span class="value">—</span>
       </div>
-      <div class="cell" data-glance="round">
+      <div class="cell glance-optional" data-glance="round">
         <span class="label">Round</span>
         <span class="value">—</span>
       </div>
@@ -39,11 +39,11 @@
         <span class="label">Set</span>
         <span class="value">—</span>
       </div>
-      <div class="cell" data-glance="side">
+      <div class="cell glance-optional" data-glance="side">
         <span class="label">Side</span>
         <span class="value">—</span>
       </div>
-      <div class="cell" data-glance="load">
+      <div class="cell glance-optional" data-glance="load">
         <span class="label">Load</span>
         <span class="value">—</span>
       </div>
@@ -53,8 +53,8 @@
       </div>
     </section>
 
-    <section class="stage stage--option1" id="session-stage" aria-labelledby="exercise-heading" hidden>
-      <div>
+    <section class="stage stage--option1 stage--workout-lock" id="session-stage" aria-labelledby="exercise-heading" hidden>
+      <div class="stage-head">
         <span class="phase-chip" id="phase-chip">Exercise</span>
         <h2 id="exercise-heading" class="exercise-name">—</h2>
       </div>
@@ -73,23 +73,23 @@
         <p id="visual-caption" class="step-instructions-text">—</p>
       </div>
 
-      <div class="meta-row" id="meta-row">
+      <div class="meta-row" id="meta-row" hidden>
         <span id="reps-meta"><strong>Reps target</strong> —</span>
         <span id="set-meta"><strong>Set</strong> —</span>
         <span id="steps-meta"><strong>Steps left</strong> —</span>
       </div>
 
-      <div class="control-bar" role="group" aria-label="Session controls">
-        <button type="button" class="btn btn-extend btn-span" id="btn-extend-rest" hidden aria-label="Extend rest by 15 seconds">Extend rest +15s</button>
-        <button type="button" class="btn btn-primary" id="btn-pause">Pause</button>
-        <button type="button" class="btn" id="btn-continue" hidden>Continue</button>
-        <button type="button" class="btn" id="btn-skip">Skip</button>
-        <button type="button" class="btn" id="btn-back">Back</button>
-        <button type="button" class="btn" id="btn-restart">Restart</button>
-        <button type="button" class="btn btn-danger" id="btn-end">End</button>
+      <div class="control-bar control-bar--icon-deck" role="group" aria-label="Session controls">
+        <button type="button" class="btn btn-icon btn-skip-primary" id="btn-skip" aria-label="Skip to next step" title="Skip">⏭</button>
+        <button type="button" class="btn btn-icon btn-primary" id="btn-pause" aria-label="Pause" title="Pause">⏸</button>
+        <button type="button" class="btn btn-icon" id="btn-continue" hidden aria-label="Continue" title="Continue">▶</button>
+        <button type="button" class="btn btn-icon" id="btn-back" aria-label="Back" title="Back">◀</button>
+        <button type="button" class="btn btn-icon" id="btn-restart" aria-label="Restart entire guided session" title="Restart entire guided session">↻</button>
+        <button type="button" class="btn btn-icon btn-danger" id="btn-end" aria-label="End session" title="End">⏹</button>
+        <button type="button" class="btn btn-icon btn-extend" id="btn-extend-rest" hidden aria-label="Extend rest by 15 seconds" title="Extend rest">+15</button>
       </div>
 
-      <div class="progress-strip">
+      <div class="progress-strip progress-strip--compact">
         <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar" aria-label="Session progress">
           <span class="progress-fill" id="progress-fill"></span>
         </div>
@@ -117,6 +117,7 @@
     <section class="stage" id="session-end" hidden aria-labelledby="end-heading">
       <h2 id="end-heading" class="exercise-name">Session closed</h2>
       <p class="instructions" id="end-summary">—</p>
+      <p class="progress-caption" id="end-total-line" hidden></p>
       <p class="progress-caption" id="end-progress">—</p>
       <p><a class="btn btn-primary" href="/library.html">Back to My routines</a></p>
     </section>
