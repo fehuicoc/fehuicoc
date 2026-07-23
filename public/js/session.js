@@ -655,7 +655,8 @@
     btnBack: document.getElementById("btn-back"),
     btnRestart: document.getElementById("btn-restart"),
     btnEnd: document.getElementById("btn-end"),
-    btnExtendRest: document.getElementById("btn-extend-rest"),
+    loadRow: document.getElementById("load-row"),
+    loadDisplay: document.getElementById("load-display"),
     progressBar: document.getElementById("progress-bar"),
     progressFill: document.getElementById("progress-fill"),
     progressCaption: document.getElementById("progress-caption"),
@@ -680,6 +681,8 @@
     // AD-022/AD-023: TOTAL wall-clock (independent of step Pause)
     totalElapsed: 0,
     totalRunning: false,
+    // AD-007: duration-owned exercise ready until Skip starts countdown
+    durationReady: false,
   };
 
   function clearTimer() {
@@ -722,15 +725,39 @@
     return lt.display_preferences || {};
   }
 
-  function allowExtendRest() {
-    const lt = state.liveTracking || {};
-    return lt.allow_extend_rest === true;
+  /** AD-007: only duration-owned *exercise* steps gate until Skip. */
+  function needsDurationReadyGate(step) {
+    return (
+      !!step &&
+      step.kind === "exercise" &&
+      step.owns_done === "duration" &&
+      step.duration_seconds != null &&
+      Number(step.duration_seconds) > 0
+    );
   }
 
-  function restIncrement() {
-    const lt = state.liveTracking || {};
-    const n = Number(lt.rest_extension_increment_seconds);
-    return Number.isFinite(n) && n > 0 ? n : 15;
+  function updateLoadRow(step) {
+    if (!ui.loadRow || !ui.loadDisplay) return;
+    if (!step || state.countdownActive) {
+      ui.loadRow.hidden = true;
+      return;
+    }
+    const prefs = displayPrefs();
+    const isRepsExercise =
+      step.kind === "exercise" &&
+      !(
+        step.duration_seconds != null && Number(step.duration_seconds) > 0
+      );
+    const loadText =
+      (step.load_display != null && step.load_display !== ""
+        ? step.load_display
+        : formatLoad(step.load)) || null;
+    const show =
+      isRepsExercise &&
+      !!loadText &&
+      prefs.show_load !== false;
+    ui.loadRow.hidden = !show;
+    if (show) ui.loadDisplay.textContent = loadText;
   }
 
   function renderStep() {
@@ -749,7 +776,7 @@
       ui.setMeta.innerHTML = "<strong>Set</strong> —";
       ui.stepsMeta.innerHTML =
         "<strong>Steps left</strong> " + state.steps.length;
-      if (ui.btnExtendRest) ui.btnExtendRest.hidden = true;
+      updateLoadRow(null);
       if (window.ERProgress && ui.glance) {
         const first = state.steps[0] || {};
         window.ERProgress.updateGlance(
@@ -810,8 +837,12 @@
     ui.stepsMeta.innerHTML = "<strong>Steps left</strong> " + left;
 
     if (step.duration_seconds != null && step.duration_seconds > 0) {
-      ui.timerLabel.textContent =
-        step.kind === "rest" ? "Rest remaining" : "Time remaining";
+      if (state.durationReady && step.kind === "exercise") {
+        ui.timerLabel.textContent = "Hold target — tap Skip to start";
+      } else {
+        ui.timerLabel.textContent =
+          step.kind === "rest" ? "Rest remaining" : "Time remaining";
+      }
       ui.timerValue.textContent = formatTime(state.remaining);
     } else {
       ui.timerLabel.textContent = "Reps target — advance when ready";
@@ -819,18 +850,7 @@
         step.reps != null ? String(step.reps) + " reps" : "—";
     }
 
-    if (ui.btnExtendRest) {
-      const showExtend = step.kind === "rest" && allowExtendRest();
-      ui.btnExtendRest.hidden = !showExtend;
-      if (showExtend) {
-        const inc = restIncrement();
-        ui.btnExtendRest.textContent = "Extend rest +" + inc + "s";
-        ui.btnExtendRest.setAttribute(
-          "aria-label",
-          "Extend rest by " + inc + " seconds"
-        );
-      }
-    }
+    updateLoadRow(step);
 
     if (window.ERVisuals) {
       window.ERVisuals.renderVisual(ui.visual, {
@@ -865,7 +885,7 @@
       state.totalElapsed += 1;
       updateTotalDisplay();
     }
-    if (state.paused) return;
+    if (state.paused || state.durationReady) return;
     if (state.countdownActive) {
       state.remaining -= 1;
       maybeBeepAtRemaining(state.remaining);
@@ -906,8 +926,11 @@
         : 0;
     lastBeepRemaining = null;
     setPaused(false);
-    // AD-022: first work/rest/transition after countdown starts TOTAL
-    ensureTotalStarted();
+    // AD-007: duration-owned exercise enters ready (timer not running) until Skip
+    state.durationReady = needsDurationReadyGate(step);
+    if (!state.durationReady) {
+      ensureTotalStarted();
+    }
     renderStep();
     startTimer();
   }
@@ -926,6 +949,7 @@
     stopTotal();
     state.started = false;
     state.countdownActive = false;
+    state.durationReady = false;
     setWorkoutLockActive(false);
     ui.stage.hidden = true;
     if (ui.glance) ui.glance.hidden = true;
@@ -1015,6 +1039,13 @@
   });
   ui.btnSkip.addEventListener("click", () => {
     if (!state.started) return;
+    // AD-007: first Skip on duration-owned exercise starts the work timer
+    if (state.durationReady) {
+      state.durationReady = false;
+      ensureTotalStarted();
+      renderStep();
+      return;
+    }
     advance(1);
   });
   ui.btnBack.addEventListener("click", () => {
@@ -1030,16 +1061,6 @@
     if (!state.started) return;
     finish(true);
   });
-  if (ui.btnExtendRest) {
-    ui.btnExtendRest.addEventListener("click", () => {
-      if (!state.started || state.countdownActive) return;
-      const step = state.steps[state.index];
-      if (!step || step.kind !== "rest" || !allowExtendRest()) return;
-      const inc = restIncrement();
-      state.remaining += inc;
-      ui.timerValue.textContent = formatTime(state.remaining);
-    });
-  }
 
   function showDayPicker(routine) {
     const picker = document.getElementById("session-day-picker");

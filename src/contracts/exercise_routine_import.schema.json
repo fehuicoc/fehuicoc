@@ -628,7 +628,8 @@
     "compatible_schema_versions": [
       "1.0",
       "1.1",
-      "1.2"
+      "1.2",
+      "1.3"
     ],
     "incompatible_major": "reject",
     "optional_fields_absent": "allowed_non_blocking",

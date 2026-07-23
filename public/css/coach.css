@@ -550,18 +550,6 @@ main {
   color: #475569;
 }
 
-.btn-extend {
-  background: #0d9488;
-  border-color: #0d9488;
-  color: #fff;
-  min-width: var(--touch-min);
-  min-height: var(--touch-min);
-}
-
-.btn-extend:hover {
-  background: var(--color-primary-hover);
-}
-
 .btn-span {
   flex: 1 1 100%;
   justify-content: center;
@@ -697,31 +685,42 @@ body.session-workout-active .progress-glance .cell[data-glance="next"] .value {
   white-space: nowrap;
 }
 
+/* AD-001: TOTAL pill — label above time, narrow vertical stack, right of glance */
 body.session-workout-active .progress-glance .cell-total {
   grid-area: total;
-  flex-direction: row;
+  display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   align-self: stretch;
-  gap: 6px;
-  padding: 4px 8px;
-  min-width: 4.75rem;
-  background: var(--color-surface-muted, #e2e8f0);
-  border-radius: 6px;
+  gap: 2px;
+  padding: 4px 6px;
+  min-width: 0;
+  max-width: 64px;
+  background: #ecfeff;
+  border: 1px solid #99f6e4;
+  border-radius: 10px;
   white-space: nowrap;
 }
 
 body.session-workout-active .progress-glance .cell-total .label {
-  font-size: 0.65rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #0f766e;
+  line-height: 1.1;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 
 body.session-workout-active .progress-glance .cell-total .session-total-value,
 body.session-workout-active .progress-glance .cell-total .value {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  color: #0f172a;
+  line-height: 1.1;
   white-space: nowrap;
   overflow: visible;
   text-overflow: clip;
@@ -729,20 +728,40 @@ body.session-workout-active .progress-glance .cell-total .value {
   word-break: keep-all;
 }
 
+/* AD-003: exercise title ~66% larger than 004 workout-lock clamp */
 body.session-workout-active #session-stage.stage--workout-lock .exercise-name {
-  font-size: clamp(0.95rem, 4vw, 1.15rem);
+  margin: 0;
+  font-size: clamp(1.58rem, 6.6vw, 1.92rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
+/* AD-005: pack work panel from top; instructions flex-grow leftover height */
 body.session-workout-active #session-stage.stage--workout-lock {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   overflow: hidden;
   padding: 10px 12px;
   margin: 0;
   border: none;
   box-shadow: none;
+  gap: 8px;
+}
+
+body.session-workout-active #session-stage.stage--workout-lock .stage-head {
+  flex-shrink: 0;
+}
+
+body.session-workout-active #session-stage.stage--workout-lock .timer-block {
+  flex-shrink: 0;
+  margin: 0;
+  padding: var(--space-8);
 }
 
 body.session-workout-active .visual-panel--instructions {
@@ -752,16 +771,38 @@ body.session-workout-active .visual-panel--instructions {
   margin-bottom: 6px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  align-items: flex-start;
 }
 
+/* AD-005: instructions ~30% larger than F-005 clamp */
 body.session-workout-active .step-instructions-text {
-  /* F-005: modest bump from clamp(1rem, 4vw, 1.2rem) — "un poco" */
-  font-size: clamp(1.08rem, 4.3vw, 1.28rem);
-  line-height: 1.4;
+  font-size: clamp(1.40rem, 5.6vw, 1.66rem);
+  line-height: 1.35;
 }
 
 body.session-workout-active .timer-value {
   font-size: clamp(2rem, 9vw, 2.65rem);
+}
+
+/* AD-004: recommended load under reps primary metric */
+body.session-workout-active .load-row {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+body.session-workout-active .load-row .load-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-right: 6px;
+}
+
+body.session-workout-active .load-row .load-value {
+  font-weight: 700;
+  color: #0d9488;
 }
 
 body.session-workout-active .control-bar--icon-deck {
@@ -794,10 +835,5 @@ body.session-workout-active .control-bar--icon-deck .btn-skip-primary {
 body.session-workout-active .progress-strip--compact {
   flex-shrink: 0;
   margin-top: 4px;
-}
-
-body.session-workout-active .btn-extend {
-  font-size: 0.75rem;
-  font-weight: 700;
 }
 

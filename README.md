@@ -2,7 +2,7 @@
 
 Static web app (no Python / FastAPI / Uvicorn). Import JSON routines, store them in `localStorage`, and run guided sessions in the browser. Deployable on Netlify.
 
-Compatible import schemas: **1.0 / 1.1** (`exercises[]`) and **1.2** (`blocks[]`).
+Compatible import schemas: **1.0 / 1.1** (`exercises[]`), **1.2** / **1.3** (`blocks[]`).
 
 ## Setup
 

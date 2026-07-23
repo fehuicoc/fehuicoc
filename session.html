@@ -63,6 +63,10 @@
       <div class="timer-block" role="status" aria-live="polite" aria-atomic="true">
         <p class="timer-value" id="timer-value">0:00</p>
         <p class="timer-label" id="timer-label">Time remaining</p>
+        <p class="load-row" id="load-row" hidden>
+          <span class="load-label">Recommended load</span>
+          <span class="load-value" id="load-display">—</span>
+        </p>
       </div>
 
       <div
@@ -87,7 +91,6 @@
         <button type="button" class="btn btn-icon" id="btn-back" aria-label="Back" title="Back">◀</button>
         <button type="button" class="btn btn-icon" id="btn-restart" aria-label="Restart entire guided session" title="Restart entire guided session">↻</button>
         <button type="button" class="btn btn-icon btn-danger" id="btn-end" aria-label="End session" title="End">⏹</button>
-        <button type="button" class="btn btn-icon btn-extend" id="btn-extend-rest" hidden aria-label="Extend rest by 15 seconds" title="Extend rest">+15</button>
       </div>
 
       <div class="progress-strip progress-strip--compact">

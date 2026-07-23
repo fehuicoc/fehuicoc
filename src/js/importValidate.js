@@ -1,6 +1,6 @@
 /**
  * Client-side import validation (replaces FastAPI /api/import/preview).
- * Schemas 1.0 / 1.1 / 1.2 via JSON Schema draft 2020-12.
+ * Schemas 1.0 / 1.1 / 1.2 / 1.3 via JSON Schema draft 2020-12.
  */
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
@@ -15,7 +15,7 @@ const validateSchema = ajv.compile(schema);
 
 function compatibleVersions() {
   const compat = schema.x_compatibility || {};
-  const versions = compat.compatible_schema_versions || ["1.0", "1.1", "1.2"];
+  const versions = compat.compatible_schema_versions || ["1.0", "1.1", "1.2", "1.3"];
   return new Set(versions.map(String));
 }
 
