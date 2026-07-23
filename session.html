@@ -21,10 +21,7 @@
     <h1 class="page-title">Guided session</h1>
     <p class="lede" id="session-routine-label">Choose a saved routine from My routines to begin.</p>
 
-    <div class="session-total-bar session-total-bar--workout" id="session-total-bar" hidden aria-label="Session total elapsed">
-      <span class="session-total-label">TOTAL</span>
-      <span class="session-total-value" id="total-elapsed" aria-live="polite">0:00</span>
-    </div>
+    <div class="session-total-bar session-total-bar--workout" id="session-total-bar" hidden aria-hidden="true"></div>
 
     <section class="progress-glance progress-glance--workout" id="progress-glance" aria-label="Session progress" hidden>
       <div class="cell cell-wide" data-glance="block">
@@ -50,6 +47,10 @@
       <div class="cell cell-wide" data-glance="next">
         <span class="label">Next</span>
         <span class="value next-line">—</span>
+      </div>
+      <div class="cell cell-total" data-glance="total" hidden>
+        <span class="label">TOTAL</span>
+        <span class="value session-total-value" id="total-elapsed" aria-live="polite">0:00</span>
       </div>
     </section>
 

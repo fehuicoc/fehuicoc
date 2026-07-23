@@ -638,6 +638,7 @@
     end: document.getElementById("session-end"),
     glance: document.getElementById("progress-glance"),
     totalBar: document.getElementById("session-total-bar"),
+    totalGlance: document.querySelector('[data-glance="total"]'),
     totalElapsed: document.getElementById("total-elapsed"),
     label: document.getElementById("session-routine-label"),
     chip: document.getElementById("phase-chip"),
@@ -823,8 +824,7 @@
       ui.btnExtendRest.hidden = !showExtend;
       if (showExtend) {
         const inc = restIncrement();
-        ui.btnExtendRest.textContent = "+" + inc;
-        ui.btnExtendRest.title = "Extend rest +" + inc + "s";
+        ui.btnExtendRest.textContent = "Extend rest +" + inc + "s";
         ui.btnExtendRest.setAttribute(
           "aria-label",
           "Extend rest by " + inc + " seconds"
@@ -930,6 +930,7 @@
     ui.stage.hidden = true;
     if (ui.glance) ui.glance.hidden = true;
     if (ui.totalBar) ui.totalBar.hidden = true;
+    if (ui.totalGlance) ui.totalGlance.hidden = true;
     ui.idle.hidden = true;
     ui.end.hidden = false;
     const totalStr = formatTime(state.totalElapsed);
@@ -997,7 +998,8 @@
     ui.end.hidden = true;
     ui.stage.hidden = false;
     if (ui.glance) ui.glance.hidden = false;
-    if (ui.totalBar) ui.totalBar.hidden = false;
+    if (ui.totalBar) ui.totalBar.hidden = true;
+    if (ui.totalGlance) ui.totalGlance.hidden = false;
     setWorkoutLockActive(true);
     lastBeepRemaining = null;
     startCountdownThenWork();
